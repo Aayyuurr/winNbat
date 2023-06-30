@@ -14,6 +14,7 @@
 		CardHeader,
 		CardTitle
 	} from '$components/ui/card';
+	import { LL } from '$lib/i18n/i18n-svelte';
 	export let data: PageData;
 	// Client API:
 	// const { form } = superForm(data.form);
@@ -29,7 +30,7 @@
 			<Button class="w-14 h-14" variant="ghost" on:click={goBack}>
 				<X class="w-14 h-14" />
 			</Button>
-			<CardTitle>Connextion/inscription à Airbnb</CardTitle>
+			<CardTitle>{$LL.connexion()}</CardTitle>
 		</CardHeader>
 		<CardContent class="grid gap-4">
 			<div class="grid grid-cols-2 gap-6">
@@ -70,16 +71,16 @@
 			</div>
 			<form class="grid gap-4">
 				<div class="grid gap-2">
-					<Label for="email">Email</Label>
+					<Label for="email">{$LL.Email()}</Label>
 					<Input id="email" type="email" placeholder="E-mail@example.com" />
 				</div>
 				<div class="grid gap-2">
-					<Label for="password">Password</Label>
+					<Label for="password">{$LL.Password()}</Label>
 					<InputPassword id="password" type="password" />
 
 				</div>
 				<div >
-					<Button class="w-full">Se connecter</Button>
+					<Button class="w-full">{$LL.SeConnecter()}</Button>
 				</div>
 			</form>
 
@@ -87,7 +88,7 @@
 		<CardFooter>
 			<CardDescription>
 				<p class="text-center ">
-					Vous n'avez pas de compte ? <a href="/sign-up" class="text-secondary-foreground">Inscrivez-vous</a>
+					{$LL.VousAvezPasDeCompte()}<a href="/sign-up" class="text-secondary-foreground">{$LL.InscrivezVous()}</a>
 				</p>
 			</CardDescription>
 		</CardFooter>

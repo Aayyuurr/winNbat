@@ -15,6 +15,8 @@
             document.getElementById("password").setAttribute("type","password");
         }
     }
+    import { LL } from '$lib/i18n/i18n-svelte';
+
 </script>
 <div>
     <input
@@ -47,9 +49,9 @@
             bottom-9
         ">
         {#if afficher}
-            Afficher
+            {$LL.Afficher()}
         {:else}
-           Masquer
+            {$LL.Masquer()}
         {/if}
     </button>
 </div>
