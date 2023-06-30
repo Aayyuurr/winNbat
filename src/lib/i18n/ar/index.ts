@@ -9,6 +9,7 @@ const ar = {
   Email:"البريد الإلكتروني",
   Afficher:"عرض",
   Masquer:"إخفاء",
+  MotDePasseOublie:"هل نسيت كلمة المرور؟",
 } satisfies Translation
 
 export default ar

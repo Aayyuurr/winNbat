@@ -24,8 +24,8 @@
 	}
 </script>
 
-<div>
-	<Card>
+<div class="mt-16">
+	<Card >
 		<CardHeader>
 			<Button class="w-14 h-14" variant="ghost" on:click={goBack}>
 				<X class="w-14 h-14" />
@@ -70,17 +70,25 @@
 				</div>
 			</div>
 			<form class="grid gap-4">
+<!--				todo
+
+					add autofocus
+					add validation
+					add error message
+					add forgot password
+-->
 				<div class="grid gap-2">
 					<Label for="email">{$LL.Email()}</Label>
-					<Input id="email" type="email" placeholder="E-mail@example.com" />
+					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email"/>
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">{$LL.Password()}</Label>
 					<InputPassword id="password" type="password" />
+					<a  href="/forgot" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
 
 				</div>
 				<div >
-					<Button class="w-full">{$LL.SeConnecter()}</Button>
+					<Button type="submit" class="w-full">{$LL.SeConnecter()}</Button>
 				</div>
 			</form>
 

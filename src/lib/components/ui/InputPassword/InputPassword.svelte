@@ -39,6 +39,7 @@
             on:paste
             on:input
             {...$$restProps}
+            autocomplete="current-password"
     />
     <button on:click={showPassword}
             class="
