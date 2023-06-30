@@ -11,7 +11,7 @@
 <style>
 	div {
 		max-width: 320px;
-		border: 1px solid black;
+
 		margin: 0 auto;
 	}
 </style>
