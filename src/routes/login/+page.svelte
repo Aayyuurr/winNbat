@@ -34,7 +34,7 @@
 		</CardHeader>
 		<CardContent class="grid gap-4">
 			<div class="grid grid-cols-2 gap-6">
-				<Button variant="outline">
+				<Button variant="secondary">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="mr-2 h-4 w-4"
@@ -47,7 +47,7 @@
 
 					Facebook
 				</Button>
-				<Button variant="outline">
+				<Button variant="secondary">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="1em"
