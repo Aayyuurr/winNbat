@@ -5,7 +5,9 @@
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-    import { InputPassword } from '$components/ui/InputPassword';
+	import LoginSchema from '$lib/ZodSchema';
+
+	import { InputPassword } from '$components/ui/InputPassword';
 	import {
 		Card,
 		CardContent,
@@ -15,9 +17,11 @@
 		CardTitle
 	} from '$components/ui/card';
 	import { LL } from '$lib/i18n/i18n-svelte';
-	export let data: PageData;
+	export let data
 	// Client API:
-	const { form, errors,enhance   } = superForm(data.form);
+	const { form, errors,enhance   } = superForm(data.form.data,{
+		validators: LoginSchema,
+	});
 	// let isLoading = false;
 	function goBack() {
 		window.history.back();
