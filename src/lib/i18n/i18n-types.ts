@@ -16,7 +16,7 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * C​o​n​n​e​x​i​o​n​/​i​n​s​c​r​i​p​t​i​o​n​ ​à​ ​w​i​n​N​b​a​t
+	 * C​o​n​n​e​x​i​o​n​ ​à​ ​w​i​n​N​b​a​t
 	 */
 	connexion: string
 	/**
@@ -51,11 +51,47 @@ type RootTranslation = {
 	 * M​o​t​ ​d​e​ ​p​a​s​s​e​ ​o​u​b​l​i​é​?
 	 */
 	MotDePasseOublie: string
+	/**
+	 * O​u
+	 */
+	ou: string
+	/**
+	 * L​'​e​m​a​i​l​ ​n​'​e​s​t​ ​p​a​s​ ​v​a​l​i​d​e
+	 */
+	IsNotValidEmail: string
+	/**
+	 * L​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e​ ​d​o​i​t​ ​c​o​n​t​e​n​i​r​ ​a​u​ ​m​o​i​n​s​ ​8​ ​c​a​r​a​c​t​è​r​e​s
+	 */
+	ShortPassword: string
+	/**
+	 * L​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e​ ​d​o​i​t​ ​c​o​n​t​e​n​i​r​ ​a​u​ ​m​a​x​i​m​u​m​ ​1​0​0​ ​c​a​r​a​c​t​è​r​e​s
+	 */
+	PasswordTooLong: string
+	/**
+	 * I​n​s​c​r​i​p​t​i​o​n​ ​a​ ​w​i​n​N​b​a​t
+	 */
+	Inscription: string
+	/**
+	 * C​o​n​f​i​r​m​e​r​ ​l​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e
+	 */
+	ConfirmPassword: string
+	/**
+	 * A​j​o​u​t​e​r​ ​v​o​s​ ​i​n​f​o​r​m​a​t​i​o​n​s
+	 */
+	AjouterVosInformations: string
+	/**
+	 * N​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r
+	 */
+	Username: string
+	/**
+	 * D​a​t​e​ ​d​e​ ​n​a​i​s​s​a​n​c​e
+	 */
+	DateDeNaissance: string
 }
 
 export type TranslationFunctions = {
 	/**
-	 * Connexion/inscription à winNbat
+	 * Connexion à winNbat
 	 */
 	connexion: () => LocalizedString
 	/**
@@ -90,6 +126,42 @@ export type TranslationFunctions = {
 	 * Mot de passe oublié?
 	 */
 	MotDePasseOublie: () => LocalizedString
+	/**
+	 * Ou
+	 */
+	ou: () => LocalizedString
+	/**
+	 * L'email n'est pas valide
+	 */
+	IsNotValidEmail: () => LocalizedString
+	/**
+	 * Le mot de passe doit contenir au moins 8 caractères
+	 */
+	ShortPassword: () => LocalizedString
+	/**
+	 * Le mot de passe doit contenir au maximum 100 caractères
+	 */
+	PasswordTooLong: () => LocalizedString
+	/**
+	 * Inscription a winNbat
+	 */
+	Inscription: () => LocalizedString
+	/**
+	 * Confirmer le mot de passe
+	 */
+	ConfirmPassword: () => LocalizedString
+	/**
+	 * Ajouter vos informations
+	 */
+	AjouterVosInformations: () => LocalizedString
+	/**
+	 * Nom d'utilisateur
+	 */
+	Username: () => LocalizedString
+	/**
+	 * Date de naissance
+	 */
+	DateDeNaissance: () => LocalizedString
 }
 
 export type Formatters = {}

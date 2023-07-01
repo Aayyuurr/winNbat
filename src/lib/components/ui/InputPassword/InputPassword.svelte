@@ -3,7 +3,7 @@
     import { cn } from "$lib/utils";
 
     let className: string | undefined | null = undefined;
-
+    export let autocomplete: HTMLInputAttributes["autocomplete"] = "current-password";
     export let value: HTMLInputAttributes["value"] = undefined;
     export { className as class };
     let afficher= false;
@@ -38,8 +38,9 @@
             on:mouseleave
             on:paste
             on:input
+            {autocomplete}
             {...$$restProps}
-            autocomplete="current-password"
+
     />
     <button on:click={showPassword}
             class="

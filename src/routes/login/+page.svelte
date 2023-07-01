@@ -17,13 +17,14 @@
 	import { LL } from '$lib/i18n/i18n-svelte';
 	export let data: PageData;
 	// Client API:
-	// const { form } = superForm(data.form);
+	const { form, errors,enhance   } = superForm(data.form);
 	// let isLoading = false;
 	function goBack() {
 		window.history.back();
 	}
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 </script>
-
+<SuperDebug data={$form} />
 <div class="mt-16">
 	<Card >
 		<CardHeader>
@@ -34,7 +35,7 @@
 		</CardHeader>
 		<CardContent class="grid gap-4">
 			<div class="grid grid-cols-2 gap-6">
-				<Button variant="secondary">
+				<Button variant="secondary" href="/api/oauth?provider=facebook">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="mr-2 h-4 w-4"
@@ -47,7 +48,7 @@
 
 					Facebook
 				</Button>
-				<Button variant="secondary">
+				<Button  variant="secondary" href="/api/oauth?provider=google">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="1em"
@@ -66,10 +67,10 @@
 					<span class="w-full border-t" />
 				</div>
 				<div class="relative flex justify-center text-xs uppercase">
-					<span class="bg-background px-2 text-muted-foreground"> Ou </span>
+					<span class="bg-background px-2 text-muted-foreground"> {$LL.ou()} </span>
 				</div>
 			</div>
-			<form class="grid gap-4">
+			<form class="grid gap-4" method="POST" action="/login" use:enhance >
 <!--				todo
 
 					add autofocus
@@ -79,11 +80,13 @@
 -->
 				<div class="grid gap-2">
 					<Label for="email">{$LL.Email()}</Label>
-					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email"/>
+					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email" bind:value={$form.email} />
+					{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">{$LL.Password()}</Label>
-					<InputPassword id="password" type="password" />
+					<InputPassword id="password" type="password" bind:value={$form.password}  />
+					{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}
 					<a  href="/forgot" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
 
 				</div>

@@ -8,7 +8,9 @@
 </script>
 
 <div>
-	<slot />
+	<main>
+		<slot />
+	</main>
 </div>
 
 <style>
@@ -16,4 +18,5 @@
 		max-width: 320px;
 		margin: 0 auto;
 	}
+
 </style>
