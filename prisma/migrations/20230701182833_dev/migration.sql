@@ -1,12 +1,11 @@
 -- CreateTable
 CREATE TABLE "auth_user" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "number" TEXT NOT NULL,
-    "wilaya" TEXT NOT NULL,
-    "daira" TEXT,
-    "adresse" TEXT,
+    "verified_email" BOOLEAN NOT NULL DEFAULT false,
+    "birthdate" TIMESTAMP(3),
+    "logo" TEXT,
 
     CONSTRAINT "auth_user_pkey" PRIMARY KEY ("id")
 );
@@ -36,13 +35,10 @@ CREATE TABLE "auth_key" (
 CREATE UNIQUE INDEX "auth_user_id_key" ON "auth_user"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "auth_user_name_key" ON "auth_user"("name");
+CREATE UNIQUE INDEX "auth_user_username_key" ON "auth_user"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "auth_user_email_key" ON "auth_user"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "auth_user_number_key" ON "auth_user"("number");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "auth_session_id_key" ON "auth_session"("id");
