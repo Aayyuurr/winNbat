@@ -80,12 +80,12 @@
 				<div class="grid gap-2">
 					<Label for="email">{$LL.Email()}</Label>
 					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email" bind:value={$form.email} />
-					<!--{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}-->
+					{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">{$LL.Password()}</Label>
 					<InputPassword id="password" type="password" bind:value={$form.password}  />
-					<!--{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}-->
+					{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}
 					<a  href="/forgot" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
 
 				</div>
