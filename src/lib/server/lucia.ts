@@ -25,7 +25,7 @@ import { google } from "@lucia-auth/oauth/providers";
 export const googleProvider = google(auth, {
     clientId: Client_ID,
     clientSecret: Client_Secret,
-    redirectUri: `${dev ? "http://localhost:5173" : "https://win-nbat.vercel.app"}/oauth/google/callback`,
+    redirectUri: `${dev ? "http://localhost:5173" : "https://win-nbat.vercel.app"}/api/oauth/google/callback`,
 });
 
 // facebook provider
