@@ -1,6 +1,6 @@
 import { auth, googleProvider } from '$lib/server/lucia';
 import { redirect } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from '../../../../../../.svelte-kit/types/src/routes';
 
 export const GET: RequestHandler = async ({ cookies, url, locals }) => {
   const code = url.searchParams.get('code');
@@ -15,6 +15,7 @@ export const GET: RequestHandler = async ({ cookies, url, locals }) => {
       if (existingUser) return existingUser;
       return await createUser({
          username: providerUser.name,
+         email: providerUser.email,
       });
     }
     const user = await getUser();

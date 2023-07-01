@@ -13,6 +13,7 @@ export const auth = lucia({
     return {
       userId: userData.id,
       username: userData.username,
+      email: userData.email,
 
     }
   }
@@ -24,7 +25,7 @@ import { google } from "@lucia-auth/oauth/providers";
 export const googleProvider = google(auth, {
     clientId: Client_ID,
     clientSecret: Client_Secret,
-    redirectUri: "https://win-nbat.vercel.app/api/oauth/google",
+    redirectUri: `${dev ? "http://localhost:5173" : "https://win-nbat.vercel.app"}/oauth/google/callback`,
 });
 
 // facebook provider
@@ -33,6 +34,10 @@ export const facebookProvider = facebook(auth, {
     clientId: Client_ID_FB,
   clientSecret: Client_Secret_FB,
   redirectUri:"http://127.0.0.1:5173/oauth/facebook/callback",
+  scope: [
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+  ],
 });
 
 export type Auth = typeof auth;
