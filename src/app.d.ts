@@ -23,6 +23,7 @@ declare global {
 			email: string;
 			logo: string;
 			verified_email: boolean;
+			birthdate: Date;
 		};
 	}
 }

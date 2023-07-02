@@ -2,10 +2,18 @@ import { z } from 'zod';
 import type { TranslationFunctions } from "./i18n/i18n-types";
 import { LL } from '$lib/i18n/i18n-svelte';
 
-const LoginSchema =  z.object({
+export  const LoginSchema =  z.object({
     email: z.string().email(),
     password: z.string().min(8).max(100)
 });
 
-const LoginSchemaLL = LoginSchema;
-export default LoginSchema;
+export const RegisterSchema =  z.object({
+    email: z.string().email(),
+    password: z.string().min(8).max(100),
+    username: z.string().min(3).max(100),
+    confirm_password: z.string().min(8).max(100),
+    birthdate: z.string().min(8).max(100),
+
+}).refine(data => data.password === data.confirm_password, {
+    message: 'Passwords do not match',
+});

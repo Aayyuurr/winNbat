@@ -37,8 +37,9 @@ export const googleProvider = google(auth, {
 import { facebook } from "@lucia-auth/oauth/providers";
 export const facebookProvider = facebook(auth, {
     clientId: Client_ID_FB,
-  clientSecret: Client_Secret_FB,
-  redirectUri:"http://127.0.0.1:5173/oauth/facebook/callback",
+    clientSecret: Client_Secret_FB,
+    redirectUri:`${dev ? "http://localhost:5173" : "https://win-nbat.vercel.app"}/api/oauth/facebook/callback`,
+    scope: ["email", "public_profile"],
 
 });
 

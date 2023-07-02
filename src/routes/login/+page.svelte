@@ -5,7 +5,7 @@
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-	import LoginSchema from '$lib/ZodSchema';
+	import { LoginSchema } from '$lib/ZodSchema';
 
 	import { InputPassword } from '$components/ui/InputPassword';
 	import {
@@ -17,16 +17,19 @@
 		CardTitle
 	} from '$components/ui/card';
 	import { LL } from '$lib/i18n/i18n-svelte';
-	export let data
+	export let data: PageData;
 	// Client API:
-	const { form, errors,enhance   } = superForm(data.form.data,{
-		validators: LoginSchema,
-	});
+
 	// let isLoading = false;
 	function goBack() {
 		window.history.back();
 	}
+
+	const {form, errors, enhance}=superForm(data.form)
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
 </script>
+<SuperDebug data={$form} />
 
 <div class="mt-16">
 	<Card >
@@ -73,7 +76,7 @@
 					<span class="bg-background px-2 text-muted-foreground"> {$LL.ou()} </span>
 				</div>
 			</div>
-			<form class="grid gap-4" method="POST" action="/login" use:enhance >
+			<form class="grid gap-4" method="POST" action="?/login" use:enhance  >
 <!--				todo
 
 					add autofocus
@@ -83,13 +86,15 @@
 -->
 				<div class="grid gap-2">
 					<Label for="email">{$LL.Email()}</Label>
-					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email" bind:value={$form.email} />
-					{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}
+					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email" name="email" bind:value={$form.email}/>
+					<!--{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}-->
 				</div>
+
 				<div class="grid gap-2">
+
 					<Label for="password">{$LL.Password()}</Label>
-					<InputPassword id="password" type="password" bind:value={$form.password}  />
-					{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}
+					<InputPassword id="password" type="password" name="password" bind:value={$form.password} />
+					<!--{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}-->
 					<a  href="/forgot" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
 
 				</div>
@@ -102,7 +107,7 @@
 		<CardFooter>
 			<CardDescription>
 				<p class="text-center ">
-					{$LL.VousAvezPasDeCompte()}<a href="/sign-up" class="text-secondary-foreground">{$LL.InscrivezVous()}</a>
+					{$LL.VousAvezPasDeCompte()}<a href="/register" class="text-secondary-foreground">{$LL.InscrivezVous()}</a>
 				</p>
 			</CardDescription>
 		</CardFooter>

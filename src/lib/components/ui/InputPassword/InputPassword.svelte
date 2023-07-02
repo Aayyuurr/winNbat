@@ -6,25 +6,26 @@
     export let autocomplete: HTMLInputAttributes["autocomplete"] = "current-password";
     export let value: HTMLInputAttributes["value"] = undefined;
     export { className as class };
-    let afficher= false;
-    function showPassword(){
+    let afficher:boolean = false;
+    export let id: string | undefined= "password";
+    function showPassword(id:string){
         afficher = !afficher;
         if(afficher){
-            document.getElementById("password").setAttribute("type","text");
+            document.getElementById(id).setAttribute("type","text")
         }else{
-            document.getElementById("password").setAttribute("type","password");
+            document.getElementById(id).setAttribute("type","password");
         }
     }
     import { LL } from '$lib/i18n/i18n-svelte';
 
 </script>
-<div>
+<div >
     <input
             class={cn(
 		"flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
 		className
 	)}
-
+            id="{id}"
             bind:value
             on:blur
             on:change
@@ -42,14 +43,15 @@
             {...$$restProps}
 
     />
-    <button on:click={showPassword}
+    <button on:click={showPassword(id)}
             class="
             text-red-600
             text-xs
             relative
             left-52
             bottom-9
-        ">
+        "
+    type="button">
         {#if afficher}
             {$LL.Afficher()}
         {:else}

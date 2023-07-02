@@ -23,7 +23,7 @@ model AuthUser {
   email          String    @unique
   verified_email Boolean   @default(false)
   birthdate      DateTime?
-  logo           String?
+  logo           String    @default("/ProfilePicture/default.png")
 
   @@map("auth_user")
 }
