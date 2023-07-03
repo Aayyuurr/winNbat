@@ -26,3 +26,9 @@ export const sendVerificationEmail= async (to:string, token:string)=>{
 
   await sendEmail(to,html,"Verify your email");
 }
+
+export const sendPasswordResetEmail= async (to:string, token:string)=>{
+  const passwordResetLink= `${dev ? "http://localhost:5173" : "https://win-nbat.vercel.app"}/password-reset/${token}`;
+  const html= `<p>Click <a href="${passwordResetLink}">here</a> to reset your password</p>`;
+  await sendEmail(to,html,"Reset your password");
+}

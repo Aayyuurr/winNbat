@@ -24,7 +24,12 @@ const en = {
 	SiPasRecuEmail: "If you didn't receive the email",
 	RenvoyerEmail: 'Resend email',
 	EmailEnvoye: 'Email sent',
-	BackToHome: 'Back to home'
+	BackToHome: 'Back to home',
+	EnvoyerEmailResetPassword:
+		'Enter the email address associated with your account. We will send you an email link to reset your password.',
+	EnvoyerLeLienDeRenitialisation: 'Send reset link',
+	VeuillezSaisirVotreNouveauMotDePasse: 'Please enter your new password',
+	Resetmdp: 'Reset password',
 } satisfies Translation;
 
 export default de;

@@ -111,6 +111,22 @@ type RootTranslation = {
 	 * R​e​t​o​u​r​ ​à​ ​l​'​a​c​c​u​e​i​l
 	 */
 	BackToHome: string
+	/**
+	 * S​a​i​s​i​s​s​e​z​ ​l​'​a​d​r​e​s​s​e​ ​e​-​m​a​i​l​ ​a​s​s​o​c​i​é​e​ ​à​ ​v​o​t​r​e​ ​c​o​m​p​t​e​.​ ​N​o​u​s​ ​v​o​u​s​ ​e​n​v​e​r​r​o​n​s​ ​u​n​ ​l​i​e​n​ ​p​a​r​ ​e​-​m​a​i​l​ ​p​o​u​r​ ​r​é​i​n​i​t​i​a​l​i​s​e​r​ ​v​o​t​r​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e​.
+	 */
+	EnvoyerEmailResetPassword: string
+	/**
+	 * E​n​v​o​y​e​r​ ​l​e​ ​l​i​e​n​ ​d​e​ ​r​é​n​i​t​i​a​l​i​s​a​t​i​o​n
+	 */
+	EnvoyerLeLienDeRenitialisation: string
+	/**
+	 * V​e​u​i​l​l​e​z​ ​s​a​i​s​i​r​ ​v​o​t​r​e​ ​n​o​u​v​e​a​u​ ​m​o​t​ ​d​e​ ​p​a​s​s​e
+	 */
+	VeuillezSaisirVotreNouveauMotDePasse: string
+	/**
+	 * R​é​i​n​i​t​i​a​l​i​s​e​r​ ​l​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e
+	 */
+	Resetmdp: string
 }
 
 export type TranslationFunctions = {
@@ -210,6 +226,22 @@ export type TranslationFunctions = {
 	 * Retour à l'accueil
 	 */
 	BackToHome: () => LocalizedString
+	/**
+	 * Saisissez l'adresse e-mail associée à votre compte. Nous vous enverrons un lien par e-mail pour réinitialiser votre mot de passe.
+	 */
+	EnvoyerEmailResetPassword: () => LocalizedString
+	/**
+	 * Envoyer le lien de rénitialisation
+	 */
+	EnvoyerLeLienDeRenitialisation: () => LocalizedString
+	/**
+	 * Veuillez saisir votre nouveau mot de passe
+	 */
+	VeuillezSaisirVotreNouveauMotDePasse: () => LocalizedString
+	/**
+	 * Réinitialiser le mot de passe
+	 */
+	Resetmdp: () => LocalizedString
 }
 
 export type Formatters = {}

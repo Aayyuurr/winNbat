@@ -17,3 +17,14 @@ export const RegisterSchema =  z.object({
 }).refine(data => data.password === data.confirm_password, {
     message: 'Passwords do not match',
 });
+
+export const ResetPasswordSchema =  z.object({
+    email: z.string().email(),
+});
+
+export const ResetPasswordTokenSchema =  z.object({
+    password: z.string().min(8).max(100),
+    confirm_password: z.string().min(8).max(100),
+}).refine(data => data.password === data.confirm_password, {
+    message: 'Passwords do not match',
+});

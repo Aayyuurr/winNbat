@@ -94,7 +94,7 @@
 					<Label for="password">{$LL.Password()}</Label>
 					<InputPassword id="password" type="password" name="password" bind:value={$form.password}  />
 					<!--{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}-->
-					<a  href="/forgot" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
+					<a  href="/password-reset" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
 
 				</div>
 				<div >
