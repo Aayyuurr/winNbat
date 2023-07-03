@@ -50,6 +50,7 @@
 						autocomplete="username"
 						name="username"
 						bind:value={$form.username}
+						required
 					/>
 				</div>
 
@@ -64,6 +65,7 @@
 						max="2023-12-31"
 						name="birthdate"
 						bind:value={$form.birthdate}
+						required
 					/>
 				</div>
 
@@ -75,6 +77,7 @@
 						placeholder="E-mail@example.com"
 						autocomplete="email"
 						name="email"
+						required
 						bind:value={$form.email}
 					/>
 				</div>

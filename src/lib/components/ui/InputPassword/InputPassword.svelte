@@ -41,6 +41,7 @@
             on:input
             {autocomplete}
             {...$$restProps}
+            required
 
     />
     <button on:click={showPassword(id)}
