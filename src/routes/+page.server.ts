@@ -3,12 +3,16 @@ import { auth } from '$lib/server/lucia';
 
 export const load = async ({ locals }) => {
   const { user } = await locals.auth.validateUser();
-  if (!user) throw redirect(302, '/login');
+  if (!user) {
+    throw redirect(302, '/login');
+  }
+  if (!user.verified_email) {
+    throw redirect(302, '/email-verification');
+  }
   return {
     user
   };
 };
-
 export const actions: Actions = {
   // signout
   default: async ({ locals }) => {

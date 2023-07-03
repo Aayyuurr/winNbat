@@ -8,10 +8,12 @@ import { LuciaError } from 'lucia-auth';
 import { auth } from '$lib/server/lucia';
 import { prisma } from '$lib/server/PrismaClient';
 import { Prisma } from '@prisma/client';
+import { emailVerificationToken } from '$lib/server/lucia';
+import { sendVerificationEmail } from '$lib/email';
 export const load = (async (event) => {
 	const { user } = await event.locals.auth.validateUser();
 	if (user) {
-		// if (!user.emailVerified) throw redirect(302, '/email-verification');
+		if (!user.verified_email) throw redirect(302, '/email-verification');
 		throw redirect(302, '/');
 	}
 	// Server API:
@@ -33,7 +35,7 @@ export const actions = {
 		}
 		// check if username or email already exists
 		try {
-			const user = await prisma.authUser.findFirst({
+			const isUser = await prisma.authUser.findFirst({
 				where: {
 					OR: [
 						{
@@ -45,13 +47,12 @@ export const actions = {
 					]
 				}
 			});
-			if (user) {
+			if (isUser) {
 				setError(form, 'username', 'email already exists');
 				setError(form, 'email', 'email already exists');
 				return { form };
 			}
 		} catch (error) {
-			console.log(error);
 			return fail(500, { form });
 		}
 		const date = new Date(form.data.birthdate);
@@ -74,9 +75,9 @@ export const actions = {
 			});
 			const session = await auth.createSession(user.userId);
 			locals.auth.setSession(session);
-			return redirect(302, '/');
+			const token = await emailVerificationToken.issue(user.userId);
+			await sendVerificationEmail(user.email, token.toString());
 		} catch (error) {
-			console.log(error);
 			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
 				return fail(400, {
 					message: 'Email is already taken',

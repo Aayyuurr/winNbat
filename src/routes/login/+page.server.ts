@@ -9,7 +9,7 @@ import { LL } from '$lib/i18n/i18n-svelte';
 export const load = (async (event) => {
 	const { user } = await event.locals.auth.validateUser();
 	if (user) {
-		// if (!user.emailVerified) throw redirect(302, '/email-verification');
+		if (!user.verified_email) throw redirect(302, '/email-verification');
 		throw redirect(302, '/');
 	}
 	// Server API:

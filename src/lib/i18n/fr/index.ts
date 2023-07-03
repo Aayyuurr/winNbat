@@ -19,6 +19,13 @@ const fr = {
 	AjouterVosInformations:"Ajouter vos informations",
 	Username:"Nom d'utilisateur",
 	DateDeNaissance:"Date de naissance",
+	ConfirmerVotreEmail:"Confirmer votre adresse email",
+	PleaseCheckYourEmail:"Veuillez vérifier votre adresse email",
+	SiPasRecuEmail:"Si vous n'avez pas reçu l'email",
+	RenvoyerEmail:"Renvoyer l'email",
+	EmailEnvoye:"Email envoyé",
+	BackToHome:"Retour à l'accueil",
+
 } satisfies BaseTranslation
 
 export default fr

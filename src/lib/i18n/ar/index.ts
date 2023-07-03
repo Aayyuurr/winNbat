@@ -19,6 +19,14 @@ const ar = {
   AjouterVosInformations:"أضف معلوماتك",
   Username:"اسم المستخدم",
   DateDeNaissance:"تاريخ الولادة",
+  ConfirmerVotreEmail:"تأكيد عنوان بريدك الإلكتروني",
+  PleaseCheckYourEmail:"يرجى التحقق من عنوان بريدك الإلكتروني",
+  SiPasRecuEmail:"إذا لم تتلق البريد الإلكتروني",
+  RenvoyerEmail:"إعادة إرسال البريد الإلكتروني",
+  EmailEnvoye:"تم إرسال البريد الإلكتروني",
+  BackToHome:"العودة إلى الصفحة الرئيسية",
+
+
 } satisfies Translation
 
 export default ar

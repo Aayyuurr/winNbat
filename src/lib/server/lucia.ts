@@ -1,4 +1,4 @@
-import lucia from "lucia-auth";
+import lucia, { Auth } from "lucia-auth";
 import { sveltekit } from "lucia-auth/middleware";
 import prisma from "@lucia-auth/adapter-prisma";
 import { PrismaClient } from "@prisma/client";
@@ -43,4 +43,15 @@ export const facebookProvider = facebook(auth, {
 
 });
 
+
 export type Auth = typeof auth;
+import {idToken} from "@lucia-auth/tokens";
+
+//email verification token
+export const emailVerificationToken = idToken(auth, 'verified_email', {
+  expiresIn: 60 * 60
+});
+//password reset token
+export const passwordResetToken = idToken(auth, 'email_reset', {
+  expiresIn: 60 * 60
+});

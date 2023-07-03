@@ -87,6 +87,30 @@ type RootTranslation = {
 	 * D​a​t​e​ ​d​e​ ​n​a​i​s​s​a​n​c​e
 	 */
 	DateDeNaissance: string
+	/**
+	 * C​o​n​f​i​r​m​e​r​ ​v​o​t​r​e​ ​a​d​r​e​s​s​e​ ​e​m​a​i​l
+	 */
+	ConfirmerVotreEmail: string
+	/**
+	 * V​e​u​i​l​l​e​z​ ​v​é​r​i​f​i​e​r​ ​v​o​t​r​e​ ​a​d​r​e​s​s​e​ ​e​m​a​i​l
+	 */
+	PleaseCheckYourEmail: string
+	/**
+	 * S​i​ ​v​o​u​s​ ​n​'​a​v​e​z​ ​p​a​s​ ​r​e​ç​u​ ​l​'​e​m​a​i​l
+	 */
+	SiPasRecuEmail: string
+	/**
+	 * R​e​n​v​o​y​e​r​ ​l​'​e​m​a​i​l
+	 */
+	RenvoyerEmail: string
+	/**
+	 * E​m​a​i​l​ ​e​n​v​o​y​é
+	 */
+	EmailEnvoye: string
+	/**
+	 * R​e​t​o​u​r​ ​à​ ​l​'​a​c​c​u​e​i​l
+	 */
+	BackToHome: string
 }
 
 export type TranslationFunctions = {
@@ -162,6 +186,30 @@ export type TranslationFunctions = {
 	 * Date de naissance
 	 */
 	DateDeNaissance: () => LocalizedString
+	/**
+	 * Confirmer votre adresse email
+	 */
+	ConfirmerVotreEmail: () => LocalizedString
+	/**
+	 * Veuillez vérifier votre adresse email
+	 */
+	PleaseCheckYourEmail: () => LocalizedString
+	/**
+	 * Si vous n'avez pas reçu l'email
+	 */
+	SiPasRecuEmail: () => LocalizedString
+	/**
+	 * Renvoyer l'email
+	 */
+	RenvoyerEmail: () => LocalizedString
+	/**
+	 * Email envoyé
+	 */
+	EmailEnvoye: () => LocalizedString
+	/**
+	 * Retour à l'accueil
+	 */
+	BackToHome: () => LocalizedString
 }
 
 export type Formatters = {}

@@ -28,7 +28,6 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 </script>
 
-<SuperDebug data={$form} />
 <div class="mt-16">
 	<Card>
 		<CardHeader>
