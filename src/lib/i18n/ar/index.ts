@@ -30,6 +30,15 @@ const ar = {
 	EnvoyerLeLienDeRenitialisation: 'إرسال رابط إعادة التعيين',
 	VeuillezSaisirVotreNouveauMotDePasse: 'الرجاء إدخال كلمة المرور الجديدة',
 	Resetmdp: 'إعادة تعيين كلمة المرور',
+	Incorrectemailorpassword: 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
+	registerSchema: {
+		usernameIshort: 'يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل',
+		usernameTooLong: 'يجب أن يتكون اسم المستخدم من 100 حرف على الأكثر',
+		birthdateRequired: 'تاريخ الميلاد مطلوب',
+		PasswordsDoNotMatch: 'كلمات المرور غير متطابقة',
+		usernameIsTaken: 'اسم المستخدم هذا موجود بالفعل',
+		emailIsTaken: 'هذا البريد الإلكتروني موجود بالفعل',
+	}
 } satisfies Translation;
 
 export default ar;

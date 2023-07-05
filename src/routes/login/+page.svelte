@@ -5,7 +5,6 @@
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
 	import { Label } from '$components/ui/label';
-	import { LoginSchema } from '$lib/ZodSchema';
 
 	import { InputPassword } from '$components/ui/InputPassword';
 	import {
@@ -25,13 +24,13 @@
 		window.history.back();
 	}
 
-	const {form, errors, enhance}=superForm(data.form)
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-
+	const { form, errors, enhance, delayed, message } = superForm(data.form, {
+		multipleSubmits: 'prevent'
+	});
 </script>
 
 <div class="mt-16">
-	<Card >
+	<Card>
 		<CardHeader>
 			<Button class="w-14 h-14" variant="ghost" on:click={goBack}>
 				<X class="w-14 h-14" />
@@ -53,7 +52,7 @@
 
 					Facebook
 				</Button>
-				<Button  variant="secondary" href="/api/oauth?provider=google">
+				<Button variant="secondary" href="/api/oauth?provider=google">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="1em"
@@ -75,38 +74,61 @@
 					<span class="bg-background px-2 text-muted-foreground"> {$LL.ou()} </span>
 				</div>
 			</div>
-			<form class="grid gap-4" method="POST" action="?/login" use:enhance  >
-<!--				todo
-
-					add autofocus
-					add validation
-					add error message
-					add forgot password
--->
+			{#if $message}
+				<p class="text-secondary-foreground">
+					{$LL.Incorrectemailorpassword()}
+				</p>
+			{/if}
+			<form class="grid gap-4" method="POST" action="?/login" use:enhance>
 				<div class="grid gap-2">
 					<Label for="email">{$LL.Email()}</Label>
-					<Input id="email" type="email" placeholder="E-mail@example.com"  autocomplete="email" name="email" bind:value={$form.email} required/>
-					<!--{#if $errors.email}<span class="invalid">{$errors.email}</span>{/if}-->
+					<Input
+						id="email"
+						aria-label="email"
+						aria-required="true"
+						aria-invalid={$errors.email ? 'true' : undefined}
+						type="text"
+						placeholder="E-mail@example.com"
+						autocomplete="email"
+						name="email"
+						bind:value={$form.email}
+						required
+					/>
+					{#if $errors.email}<span class="text-sm text-muted-foreground">{$errors.email}</span>{/if}
 				</div>
 
 				<div class="grid gap-2">
-
 					<Label for="password">{$LL.Password()}</Label>
-					<InputPassword id="password" type="password" name="password" bind:value={$form.password}  />
-					<!--{#if $errors.password}<span class="invalid">{$errors.password}</span>{/if}-->
-					<a  href="/password-reset" class="text-secondary-foreground text-xs -mt-7">{$LL.MotDePasseOublie()}</a>
-
+					<InputPassword
+						id="password"
+						type="password"
+						name="password"
+						bind:value={$form.password}
+					/>
+					{#if $errors.password}<span class="-mt-6 mb-6 text-sm text-muted-foreground"
+							>{$errors.password}</span
+						>{/if}
+					<a href="/password-reset" class="text-secondary-foreground text-xs -mt-7"
+						>{$LL.MotDePasseOublie()}</a
+					>
 				</div>
-				<div >
-					<Button type="submit" class="w-full">{$LL.SeConnecter()}</Button>
+				<div>
+					<Button type="submit" class="w-full -mt-8">
+						{#if $delayed}
+							<Loader2 class="w-6 h-6 animate-spin" />
+						{:else}
+							{$LL.SeConnecter()}
+						{/if}
+					</Button>
 				</div>
 			</form>
-
 		</CardContent>
 		<CardFooter>
 			<CardDescription>
-				<p class="text-center ">
-					{$LL.VousAvezPasDeCompte()}<a href="/register" class="text-secondary-foreground">{$LL.InscrivezVous()}</a>
+				<p class="text-center">
+					{$LL.VousAvezPasDeCompte()}<a href="/register" class="text-secondary-foreground"
+						>{$LL.InscrivezVous()}</a
+					>
 				</p>
 			</CardDescription>
 		</CardFooter>

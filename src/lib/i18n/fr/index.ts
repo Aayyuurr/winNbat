@@ -30,6 +30,15 @@ const fr = {
 	EnvoyerLeLienDeRenitialisation: 'Envoyer le lien de rénitialisation',
 	VeuillezSaisirVotreNouveauMotDePasse: 'Veuillez saisir votre nouveau mot de passe',
 	Resetmdp: 'Réinitialiser le mot de passe',
+	Incorrectemailorpassword: 'Email ou mot de passe incorrect',
+	registerSchema:{
+		usernameIshort: 'Le nom d\'utilisateur doit contenir au moins 3 caractères',
+		usernameTooLong: 'Le nom d\'utilisateur doit contenir au maximum 100 caractères',
+		birthdateRequired: 'La date de naissance est requise',
+		PasswordsDoNotMatch: 'Les mots de passe ne correspondent pas',
+		usernameIsTaken: 'Ce nom d\'utilisateur est déjà pris',
+		emailIsTaken: 'Cet email est déjà pris',
+	}
 } satisfies BaseTranslation;
 
 export default fr;

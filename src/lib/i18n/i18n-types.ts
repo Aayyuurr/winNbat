@@ -127,6 +127,36 @@ type RootTranslation = {
 	 * R​é​i​n​i​t​i​a​l​i​s​e​r​ ​l​e​ ​m​o​t​ ​d​e​ ​p​a​s​s​e
 	 */
 	Resetmdp: string
+	/**
+	 * E​m​a​i​l​ ​o​u​ ​m​o​t​ ​d​e​ ​p​a​s​s​e​ ​i​n​c​o​r​r​e​c​t
+	 */
+	Incorrectemailorpassword: string
+	registerSchema: {
+		/**
+		 * L​e​ ​n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r​ ​d​o​i​t​ ​c​o​n​t​e​n​i​r​ ​a​u​ ​m​o​i​n​s​ ​3​ ​c​a​r​a​c​t​è​r​e​s
+		 */
+		usernameIshort: string
+		/**
+		 * L​e​ ​n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r​ ​d​o​i​t​ ​c​o​n​t​e​n​i​r​ ​a​u​ ​m​a​x​i​m​u​m​ ​1​0​0​ ​c​a​r​a​c​t​è​r​e​s
+		 */
+		usernameTooLong: string
+		/**
+		 * L​a​ ​d​a​t​e​ ​d​e​ ​n​a​i​s​s​a​n​c​e​ ​e​s​t​ ​r​e​q​u​i​s​e
+		 */
+		birthdateRequired: string
+		/**
+		 * L​e​s​ ​m​o​t​s​ ​d​e​ ​p​a​s​s​e​ ​n​e​ ​c​o​r​r​e​s​p​o​n​d​e​n​t​ ​p​a​s
+		 */
+		PasswordsDoNotMatch: string
+		/**
+		 * C​e​ ​n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r​ ​e​s​t​ ​d​é​j​à​ ​p​r​i​s
+		 */
+		usernameIsTaken: string
+		/**
+		 * C​e​t​ ​e​m​a​i​l​ ​e​s​t​ ​d​é​j​à​ ​p​r​i​s
+		 */
+		emailIsTaken: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -242,6 +272,36 @@ export type TranslationFunctions = {
 	 * Réinitialiser le mot de passe
 	 */
 	Resetmdp: () => LocalizedString
+	/**
+	 * Email ou mot de passe incorrect
+	 */
+	Incorrectemailorpassword: () => LocalizedString
+	registerSchema: {
+		/**
+		 * Le nom d'utilisateur doit contenir au moins 3 caractères
+		 */
+		usernameIshort: () => LocalizedString
+		/**
+		 * Le nom d'utilisateur doit contenir au maximum 100 caractères
+		 */
+		usernameTooLong: () => LocalizedString
+		/**
+		 * La date de naissance est requise
+		 */
+		birthdateRequired: () => LocalizedString
+		/**
+		 * Les mots de passe ne correspondent pas
+		 */
+		PasswordsDoNotMatch: () => LocalizedString
+		/**
+		 * Ce nom d'utilisateur est déjà pris
+		 */
+		usernameIsTaken: () => LocalizedString
+		/**
+		 * Cet email est déjà pris
+		 */
+		emailIsTaken: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

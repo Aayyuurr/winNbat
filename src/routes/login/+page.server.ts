@@ -1,13 +1,21 @@
 import type { PageServerLoad, Actions } from './$types';
-import { LoginSchema } from '$lib/ZodSchema';
-import { superValidate } from 'sveltekit-superforms/server';
+import { superValidate, message } from 'sveltekit-superforms/server';
 import { LuciaError } from 'lucia-auth';
 import { auth } from '$lib/server/lucia';
-
 import { fail, redirect } from '@sveltejs/kit';
 import { LL } from '$lib/i18n/i18n-svelte';
+import { get } from "svelte/store";
+import { z } from "zod";
+
+
+
 export const load = (async (event) => {
 	const { user } = await event.locals.auth.validateUser();
+	const ll=get(LL);
+	const LoginSchema =  z.object({
+		email: z.string().email(ll.IsNotValidEmail()),
+		password: z.string().min(8,ll.ShortPassword()).max(100,ll.PasswordTooLong())
+	});
 	if (user) {
 		if (!user.verified_email) throw redirect(302, '/email-verification');
 		throw redirect(302, '/');
@@ -22,8 +30,12 @@ export const load = (async (event) => {
 
 export const actions = {
 	login: async ({ request, locals }) => {
+		const ll=get(LL);
+		const LoginSchema =  z.object({
+			email: z.string().email(ll.IsNotValidEmail()),
+			password: z.string().min(8,ll.ShortPassword()).max(100,ll.PasswordTooLong())
+		});
 		const form = await superValidate(request, LoginSchema);
-		console.log(form);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
@@ -33,20 +45,17 @@ export const actions = {
 			locals.auth.setSession(session);
 		} catch (e) {
 			if (e instanceof LuciaError && e.message === 'AUTH_INVALID_KEY_ID') {
-				return fail(400, {
+				return message(form, {
 					message: 'Incorrect email or password',
-					form
 				});
 			}
 			if (e instanceof LuciaError && e.message === 'AUTH_INVALID_PASSWORD') {
-				return fail(400, {
+				return message(form, {
 					message: 'Incorrect email or password',
-					form
 				});
 			}
-			return fail(400, {
+			return message(form, {
 				message: 'An unknown error occurred',
-				form
 			});
 		}
 		throw redirect(302, '/');

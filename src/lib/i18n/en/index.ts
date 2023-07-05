@@ -30,6 +30,15 @@ const en = {
 	EnvoyerLeLienDeRenitialisation: 'Send reset link',
 	VeuillezSaisirVotreNouveauMotDePasse: 'Please enter your new password',
 	Resetmdp: 'Reset password',
+	Incorrectemailorpassword: 'Incorrect email or password',
+	registerSchema: {
+		usernameIshort: 'Username must be at least 3 characters',
+		usernameTooLong: 'Username must be at most 100 characters',
+		birthdateRequired: 'Birthdate is required',
+		PasswordsDoNotMatch: 'Passwords do not match',
+		usernameIsTaken: 'This username is already taken',
+		emailIsTaken: 'This email is already taken',
+	}
 } satisfies Translation;
 
-export default de;
+export default en;
