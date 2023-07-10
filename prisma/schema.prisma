@@ -16,6 +16,7 @@ model AuthUser {
   id           String        @id @unique
   auth_session AuthSession[]
   auth_key     AuthKey[]
+  more_info    MoreInfo?
 
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
@@ -26,6 +27,129 @@ model AuthUser {
   logo           String    @default("/ProfilePicture/default.png")
 
   @@map("auth_user")
+}
+
+model MoreInfo {
+  id           String        @id @unique
+  phone_number String?       @unique
+  wilaya       String?
+  commune      String?
+  address      String?
+  role         role          @default(voyager)
+  auth_user    AuthUser      @relation(references: [id], fields: [id], onDelete: Cascade)
+  Reservation  Reservation[]
+  Apartment    Apartment[]
+  Liked        Liked[]
+  theme        theme         @default(computer)
+  langue       langue        @default(computer)
+
+  Comment Comment[]
+  Favorit Favorit[]
+
+  @@map("more_info")
+}
+
+model Reservation {
+  id           String    @id @unique
+  status       status    @default(pending)
+  start_date   DateTime
+  end_date     DateTime
+  renter_id    String
+  apartment_id String
+  prix         Int
+  renter       MoreInfo  @relation(references: [id], fields: [renter_id], onDelete: Cascade)
+  apartment    Apartment @relation(references: [id], fields: [apartment_id], onDelete: Cascade)
+
+  @@index([renter_id])
+  @@index([apartment_id])
+  @@map("reservation")
+}
+
+model Apartment {
+  id          String        @id @unique
+  name        String
+  description String
+  price       Int
+  wilaya      String
+  commune     String
+  address     String
+  rooms       Int
+  bathrooms   Int
+  beds        Int
+  images      String[]
+  owner_id    String
+  owner       MoreInfo      @relation(references: [id], fields: [owner_id], onDelete: Cascade)
+  reservation Reservation[]
+  liked       Liked[]
+  Comment     Comment[]
+  Favorit     Favorit[]
+
+  @@index([owner_id])
+  @@map("apartment")
+}
+
+model Liked {
+  id           String    @id @unique
+  user_id      String
+  apartment_id String
+  user         MoreInfo  @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  apartment    Apartment @relation(references: [id], fields: [apartment_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([apartment_id])
+  @@map("liked")
+}
+
+model Comment {
+  id           String    @id @unique
+  user_id      String
+  apartment_id String
+  comment      String
+  user         MoreInfo  @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  apartment    Apartment @relation(references: [id], fields: [apartment_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([apartment_id])
+  @@map("comment")
+}
+
+model Favorit {
+  id           String    @id @unique
+  user_id      String
+  apartment_id String
+  user         MoreInfo  @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  apartment    Apartment @relation(references: [id], fields: [apartment_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([apartment_id])
+  @@map("favorit")
+}
+
+enum status {
+  pending
+  accepted
+  refused
+  canceled
+  finished
+}
+
+enum role {
+  admin
+  voyager
+  renter
+}
+
+enum langue {
+  ar
+  en
+  fr
+  computer
+}
+
+enum theme {
+  light
+  dark
+  computer
 }
 
 model AuthSession {

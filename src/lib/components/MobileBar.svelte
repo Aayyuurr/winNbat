@@ -1,33 +1,59 @@
 <script lang="ts">
-	import { Search, Heart, UserCircle2 } from 'lucide-svelte';
+	import { Search, Heart, Luggage, MessageSquare, UserCircle2 } from 'lucide-svelte';
 	import { Avatar, AvatarFallback, AvatarImage } from '$components/ui/avatar';
+	import type { PageData } from './$types';
+	export let user = null;
 </script>
 
-<div class="max-h-16 w-full flex justify-evenly p-2">
-	<a href="/" class="flex flex-col items-center">
-		<Search class="w-7 h-7 " />
-		<!-- todo
-            add multi language support
-        -->
-		<span>Explorer</span>
-	</a>
-	<a href="whislists" class="flex flex-col items-center">
-		<Heart class="w-7 h-7" />
-		<!-- todo
-            add multi language support
-        -->
-		<span>Favoris</span>
-	</a>
-	<a href="login" class="flex flex-col items-center">
-		<!-- <UserCircle2 class="w-6 h-6" /> -->
-		<!-- todo
-            add multi language support
-            add avatar card with user name
-        -->
-		<Avatar>
-			<AvatarImage src="" alt="UserIcon" />
-			<AvatarFallback>U</AvatarFallback>
-		</Avatar>
-		<span>Connexion</span>
-	</a>
-</div>
+<nav class="flex flex-row w-full justify-around border border-black">
+	<div class='h-full'>
+		<a href="/" class="flex flex-col items-stretch justify-between h-full  hover:text-red-600">
+			<span class="flex justify-center ">
+				<Search size='28' />
+			</span>
+			<span>Explorer</span>
+		</a>
+	</div>
+	<div class='h-full'>
+		<a href="/favoris" class="flex flex-col items-stretch justify-between h-full  hover:text-red-600">
+			<span class="flex justify-center ">
+			<Heart size='28'  />
+			</span>
+			<span>Favoris</span></a
+		>
+	</div>
+	<div class='h-full'>
+		<a href="/voyages" class="flex flex-col items-stretch justify-between h-full  hover:text-red-600">
+			<span class="flex justify-center ">
+			<Luggage size='28'  />
+			</span>
+			<span> Voyages </span>
+		</a>
+	</div>
+	<div class='h-full' >
+		<a href="/messages" class="flex flex-col items-stretch justify-between h-full  hover:text-red-600">
+			<span class="flex justify-center ">
+			<MessageSquare size='28'  />
+			</span>
+			<span> Messages </span>
+		</a>
+	</div>
+	<div class='h-full'>
+			<a href="/profil" class="flex flex-col items-stretch justify-between h-full  hover:text-red-600">
+		{#if !user}
+				<span class="flex justify-center ">
+				<UserCircle2 size='28'  />
+				</span>
+				<span> Profile </span>
+		{:else}
+				<span class="flex justify-center ">
+				<Avatar >
+					<AvatarImage src={user.logo} alt="avatar"  />
+					<AvatarFallback>{user.username}</AvatarFallback>
+				</Avatar>
+				</span>
+				<span> Profile </span>
+		{/if}
+			</a>
+	</div>
+</nav>

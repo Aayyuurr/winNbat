@@ -38,7 +38,12 @@ const ar = {
 		PasswordsDoNotMatch: 'كلمات المرور غير متطابقة',
 		usernameIsTaken: 'اسم المستخدم هذا موجود بالفعل',
 		emailIsTaken: 'هذا البريد الإلكتروني موجود بالفعل',
-	}
+	},
+	ProfilePage: {
+		Profil: 'الملف الشخصي',
+		CreerUnProfile: 'إنشاء ملف تعريف',
+		InformationsPersonnelles: 'معلومات شخصية',
+	},
 } satisfies Translation;
 
 export default ar;

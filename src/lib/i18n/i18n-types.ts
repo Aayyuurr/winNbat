@@ -157,6 +157,20 @@ type RootTranslation = {
 		 */
 		emailIsTaken: string
 	}
+	ProfilePage: {
+		/**
+		 * P​r​o​f​i​l
+		 */
+		Profil: string
+		/**
+		 * C​r​é​e​r​ ​u​n​ ​p​r​o​f​i​l
+		 */
+		CreerUnProfile: string
+		/**
+		 * I​n​f​o​r​m​a​t​i​o​n​s​ ​p​e​r​s​o​n​n​e​l​l​e​s
+		 */
+		InformationsPersonnelles: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -301,6 +315,20 @@ export type TranslationFunctions = {
 		 * Cet email est déjà pris
 		 */
 		emailIsTaken: () => LocalizedString
+	}
+	ProfilePage: {
+		/**
+		 * Profil
+		 */
+		Profil: () => LocalizedString
+		/**
+		 * Créer un profil
+		 */
+		CreerUnProfile: () => LocalizedString
+		/**
+		 * Informations personnelles
+		 */
+		InformationsPersonnelles: () => LocalizedString
 	}
 }
 

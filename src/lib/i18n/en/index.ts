@@ -38,7 +38,12 @@ const en = {
 		PasswordsDoNotMatch: 'Passwords do not match',
 		usernameIsTaken: 'This username is already taken',
 		emailIsTaken: 'This email is already taken',
-	}
+	},
+	ProfilePage: {
+		Profil: 'Profile',
+		CreerUnProfile: 'Create a profile',
+		InformationsPersonnelles: 'Personal information',
+	},
 } satisfies Translation;
 
 export default en;

@@ -11,6 +11,8 @@
 	<main>
 		<slot />
 	</main>
+	<MobileBar user={data.user} />
+
 </div>
 
 <style>
