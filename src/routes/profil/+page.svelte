@@ -68,7 +68,6 @@
 		delayed: ChangeBirthdateFormDelayed,
 	} = superForm(data.ChangeBirthdateForm);
 	$: user = data.user;
-	$: call = `call:${data.moreInfoUser.phone_number}`;
 </script>
 
 <div class="bg-secondary">
@@ -124,49 +123,94 @@
 			<div class="flex flex-row justify-evenly">
 				<div>
 					<Phone size="20" strokeWidth="1.75" />
-					{#if !data.moreInfoUser.phone_number}
-						<Dialog modal={true}>
-							<DialogTrigger
-								class={buttonVariants({
-									variant: 'link',
-									size: 'no',
-								})}
-							>
-								<p>ajouter un numéro de téléphone</p>
-								<Edit size="20" strokeWidth="1.75" />
-							</DialogTrigger>
-							<DialogContent class="sm:max-w-[325px]">
-								<DialogHeader>
-									<DialogTitle>Edit profile</DialogTitle>
-									<DialogDescription>
-										Make changes to your profile here. Click save when you're done.
-									</DialogDescription>
-								</DialogHeader>
-								<form method="POST" action="?/SetPhone" use:SetPhoneFormEnhance>
-									<div class="grid w-full max-w-sm items-center gap-1.5">
-										<Label class="text-left" for="phone">phone</Label>
-										<Input type="phone_number" name="phone" bind:value={$form.phone} />
-									</div>
 
-									<DialogFooter class="mt-4">
-										{#if $SetPhoneFormDelayed}
-											<Button disabled type="submit" value="Submit">
-												<Loader2 class="w-6 h-6 animate-spin" />
-											</Button>
-										{:else}
-											<Button type="submit" value="Submit">votre numéro de telephone</Button>
-										{/if}
-									</DialogFooter>
-								</form>
-							</DialogContent>
-						</Dialog>
-					{:else}
-						<a href={call}>{data.moreInfoUser.phone_number}</a>
-					{/if}
-					<p />
+					<Dialog modal={true}>
+						<DialogTrigger
+							class={buttonVariants({
+								variant: 'link',
+								size: 'no',
+							})}
+						>
+							{#if !data.moreInfoUser.phone_number}
+								<p>ajouter un numéro de téléphone</p>
+							{:else}
+								<p>{data.moreInfoUser.phone_number}</p>
+							{/if}
+
+							<Edit size="20" strokeWidth="1.75" />
+						</DialogTrigger>
+						<DialogContent class="sm:max-w-[325px]">
+							<DialogHeader>
+								<DialogTitle>Edit profile</DialogTitle>
+								<DialogDescription>
+									Make changes to your profile here. Click save when you're done.
+								</DialogDescription>
+							</DialogHeader>
+							<form method="POST" action="?/SetPhone" use:SetPhoneFormEnhance>
+								<div class="grid w-full max-w-sm items-center gap-1.5">
+									<Label class="text-left" for="phone">phone</Label>
+									<Input type="phone_number" name="phone" bind:value={$form.phone} />
+								</div>
+
+								<DialogFooter class="mt-4">
+									{#if $SetPhoneFormDelayed}
+										<Button disabled type="submit" value="Submit">
+											<Loader2 class="w-6 h-6 animate-spin" />
+										</Button>
+									{:else}
+										<Button type="submit" value="Submit">votre numéro de telephone</Button>
+									{/if}
+								</DialogFooter>
+							</form>
+						</DialogContent>
+					</Dialog>
 				</div>
 				<div>
 					<MapPin size="20" strokeWidth="1.75" />
+					<Dialog modal={true}>
+						<DialogTrigger
+							class={buttonVariants({
+								variant: 'link',
+								size: 'no',
+							})}
+						>
+							{#if !data.moreInfoUser.wilaya}
+								<p>ajouter votre adresse</p>
+							{:else}
+								<p>{data.moreInfoUser.wilaya}</p>
+							{/if}
+
+							<Edit size="20" strokeWidth="1.75" />
+						</DialogTrigger>
+						<DialogContent class="sm:max-w-[325px]">
+							<DialogHeader>
+								<DialogTitle>Edit profile</DialogTitle>
+								<DialogDescription>
+									Make changes to your profile here. Click save when you're done.
+								</DialogDescription>
+							</DialogHeader>
+							<form method="POST" action="?/SetLocation" use:SetLocationFormEnhance>
+								<div class="grid w-full max-w-sm items-center gap-1.5">
+									<Label class="text-left" for="wilaya">wilaya</Label>
+									<Input type="text" name="wilaya" bind:value={$form.wilaya} />
+								</div>
+								<div class="grid w-full max-w-sm items-center gap-1.5">
+									<Label class="text-left" for="commune">commune</Label>
+									<Input type="text" name="commune" bind:value={$form.commune} />
+								</div>
+
+								<DialogFooter class="mt-4">
+									{#if $SetLocationFormDelayed}
+										<Button disabled type="submit" value="Submit">
+											<Loader2 class="w-6 h-6 animate-spin" />
+										</Button>
+									{:else}
+										<Button type="submit" value="Submit">votre numéro de telephone</Button>
+									{/if}
+								</DialogFooter>
+							</form>
+						</DialogContent>
+					</Dialog>
 				</div>
 			</div>
 			<Separator />
