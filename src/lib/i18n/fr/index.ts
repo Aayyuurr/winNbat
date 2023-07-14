@@ -44,6 +44,7 @@ const fr = {
 		CreerUnProfile: 'Créer un profil',
 		InformationsPersonnelles: 'Informations personnelles',
 	},
+	IsNotValidPhone: "Le numéro de téléphone n'est pas valide",
 } satisfies BaseTranslation;
 
 export default fr;

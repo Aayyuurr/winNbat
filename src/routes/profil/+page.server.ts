@@ -2,76 +2,314 @@ import type { PageServerLoad, Actions } from './$types';
 
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { LuciaError } from 'lucia-auth';
 
 import { auth, emailVerificationToken } from '$lib/server/lucia';
 import { prisma } from '$lib/server/PrismaClient';
 import { get } from 'svelte/store';
-import { LL } from '$lib/i18n/i18n-svelte';
+import { LL, setLocale } from '$lib/i18n/i18n-svelte';
 import { z } from 'zod';
 import { sendVerificationEmail } from '$lib/email';
+import { Prisma } from '@prisma/client';
 
 export const load = (async (event) => {
 	const ll = get(LL);
 	const { user } = await event.locals.auth.validateUser();
-	const moreInfoUser = await prisma.moreInfo.findUnique({
+	let moreInfoUser = await prisma.moreInfo.findUnique({
 		where: {
 			id: user.userId,
 		},
 	});
-	return { moreInfoUser: moreInfoUser };
+	if (!moreInfoUser) {
+		moreInfoUser = await prisma.moreInfo.create({
+			data: {
+				id: user.userId,
+			},
+		});
+	}
+
+	const ChangeEmailSchema = z.object({
+		email: z.string().email(ll.IsNotValidEmail()),
+	});
+	const ChangeEmailForm = await superValidate(ChangeEmailSchema);
+	const ChangeMdpSchema = z
+		.object({
+			oldPassword: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
+			password: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
+			confirmPassword: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
+		})
+		.refine((data) => data.password === data.confirmPassword, {
+			message: ll.registerSchema.PasswordsDoNotMatch(),
+			path: ['confirmPassword'],
+		});
+	const ChangeMdpForm = await superValidate(ChangeMdpSchema);
+
+	const SetPhoneSchema = z.object({
+		phone: z
+			.string()
+			.trim()
+			.regex(new RegExp(/^(00213|\+213|0)(5|6|7)[0-9]{8}$/), ll.IsNotValidPhone()),
+	});
+	const SetPhoneForm = await superValidate(SetPhoneSchema);
+
+	const SetLocationSchema = z.object({
+		wilaya: z.string().trim().min(2).max(100),
+		commune: z.string().trim().min(2).max(100),
+	});
+	const SetLocationForm = await superValidate(SetLocationSchema);
+
+	const ChangeLangueSchema = z.object({
+		langue: z.enum(['ar', 'en', 'fr', 'computer']),
+	});
+	const ChangeLangueForm = await superValidate(ChangeLangueSchema);
+
+	const ChangeUsernameSchema = z.object({
+		username: z
+			.string()
+			.min(3, ll.registerSchema.usernameIshort())
+			.max(100, ll.registerSchema.usernameTooLong())
+			.default(user.username),
+	});
+	const ChangeUsernameForm = await superValidate(ChangeUsernameSchema);
+
+	const ChangeBirthdateSchema = z.object({
+		birthdate: z
+			.string()
+			.min(8, ll.registerSchema.birthdateRequired())
+			.max(100, ll.registerSchema.birthdateRequired()),
+	});
+	const ChangeBirthdateForm = await superValidate(ChangeBirthdateSchema);
+
+	return {
+		user,
+		moreInfoUser,
+		ChangeEmailForm,
+		ChangeUsernameForm,
+		ChangeMdpForm,
+		SetPhoneForm,
+		SetLocationForm,
+		ChangeLangueForm,
+		ChangeBirthdateForm,
+	};
 }) satisfies PageServerLoad;
 
 export const actions = {
+	// todo: test later
 	ChangeEmail: async ({ request, locals }) => {
-		let ll = get(LL);
+		const ll = get(LL);
 		const ChangeEmailSchema = z.object({
-			email: z.string.email(),
+			email: z.string().email(ll.IsNotValidEmail()),
 		});
 		const ChangeEmailForm = await superValidate(request, ChangeEmailSchema);
 		if (!ChangeEmailForm.valid) {
 			return fail(400, ChangeEmailForm);
 		}
 		const { user } = await locals.auth.validateUser();
-
-		// todo add handler
-		const change = await auth.updateUserAttributes(user.userId,{
-			verified_email:false,
-			email: ChangeEmailForm.data.email;
-		});
-		await auth.invalidateAllUserSessions(user.userId);
-		const session = await auth.createSession(user.userId);
-		locals.auth.setSession(session);
-		const token = await emailVerificationToken.issue(user.userId);
-		await sendVerificationEmail(user.email, token.toString());
-		// todo add catch error
+		try {
+			const change = await auth.updateUserAttributes(user.userId, {
+				verified_email: false,
+				email: ChangeEmailForm.data.email,
+			});
+			await auth.invalidateAllUserSessions(user.userId);
+			const session = await auth.createSession(user.userId);
+			locals.auth.setSession(session);
+			const token = await emailVerificationToken.issue(user.userId);
+			await sendVerificationEmail(user.email, token.toString());
+		} catch (e) {
+			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
+				return message(ChangeEmailForm, {
+					message: 'Email is already taken',
+				});
+			}
+			if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+				return message(ChangeEmailForm, {
+					message: 'Email is already taken',
+				});
+			}
+			return message(ChangeEmailForm, {
+				message: 'An unknown error occurred',
+			});
+		}
 	},
-	ChangeMdp: async (event) => {
-		let ll = get(LL);
+	ChangeMdp: async ({ request, locals }) => {
+		const ll = get(LL);
 		const ChangeMdpSchema = z
 			.object({
-				oldPassword: z.string.min(8).max(100),
-				password: z.string.min(8).max(100),
-				confirmPassword: z.string.min(8).max(100),
+				oldPassword: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
+				password: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
+				confirmPassword: z.string().min(8, ll.ShortPassword()).max(100, ll.PasswordTooLong()),
 			})
-			.refine((data) => data.password === data.confirm_password, {
-				// todo: replace with ll
-				message: 'Passwords do not match',
+			.refine((data) => data.password === data.confirmPassword, {
+				message: ll.registerSchema.PasswordsDoNotMatch(),
+				path: ['confirmPassword'],
 			});
-		// todo add handler
+		const ChangeMdpForm = await superValidate(request, ChangeMdpSchema);
+		if (!ChangeMdpForm.valid) {
+			return fail(400, ChangeMdpForm);
+		}
+		try {
+			const { user } = await locals.auth.validateUser();
+			await auth.invalidateAllUserSessions(user.userId);
+			await auth.updateKeyPassword('email', user.email, ChangeMdpForm.data.password);
+			const session = await auth.createSession(user.userId);
+			locals.auth.setSession(session);
+		} catch (e) {
+			console.log(e);
+			return fail(400, {
+				message: 'An unknown error occurred',
+				ChangeMdpForm,
+			});
+		}
 	},
-	SetPhone: async (event) => {
-		let ll = get(LL);
+
+	SetPhone: async ({ request, locals }) => {
+		const ll = get(LL);
+		const phoneRegx = new RegExp(/^(00213|\+213|0)(5|6|7)[0-9]{8}$/);
 		const SetPhoneSchema = z.object({
-			//todo: add regex
-			phone: z.string().regex(),
+			phone: z.string().trim().regex(phoneRegx, ll.IsNotValidPhone()),
 		});
+		const SetPhoneForm = await superValidate(request, SetPhoneSchema);
+		if (!SetPhoneForm.valid) {
+			return fail(400, SetPhoneForm);
+		}
+		const { user } = await locals.auth.validateUser();
+		try {
+			await prisma.moreInfo.update({
+				where: {
+					id: user.userId,
+				},
+				data: {
+					phone_number: SetPhoneForm.data.phone,
+				},
+			});
+		} catch (e) {
+			console.log(e);
+			return fail(400, {
+				message: 'An unknown error occurred',
+				SetPhoneForm,
+			});
+		}
 	},
-	SetLocation: async (event) {
-		let ll = get(LL);
+	SetLocation: async ({ request, locals }) => {
+		const ll = get(LL);
 		const SetLocationSchema = z.object({
-			//todo: add regex
-			phone: z.string().regex(),
+			wilaya: z.string().trim().min(2).max(100),
+			commune: z.string().trim().min(2).max(100),
 		});
-		
-	}
+		const SetLocationForm = await superValidate(request, SetLocationSchema);
+		if (!SetLocationForm.valid) {
+			return fail(400, SetLocationForm);
+		}
+		const { user } = await locals.auth.validateUser();
+		try {
+			await prisma.moreInfo.update({
+				where: {
+					id: user.userId,
+				},
+				data: {
+					wilaya: SetLocationForm.data.wilaya,
+					commune: SetLocationForm.data.commune,
+				},
+			});
+		} catch (e) {
+			console.log(e);
+			return fail(400, {
+				message: 'An unknown error occurred',
+				SetLocationForm,
+			});
+		}
+	},
+
+	ChangeLangue: async ({ request, locals }) => {
+		const ll = get(LL);
+
+		const ChangeLangueSchema = z.object({
+			langue: z.enum(['ar', 'en', 'fr', 'computer']),
+		});
+
+		const ChangeLangueForm = await superValidate(request, ChangeLangueSchema);
+		if (!ChangeLangueForm.valid) {
+			return fail(400, ChangeLangueForm);
+		}
+		const { user } = await locals.auth.validateUser();
+		// todo: change locale language
+		try {
+			await prisma.moreInfo.update({
+				where: {
+					id: user.userId,
+				},
+				data: {
+					langue: ChangeLangueForm.data.langue,
+				},
+			});
+		} catch (e) {
+			return fail(400, {
+				message: 'An unknown error occurred',
+				ChangeLangueForm,
+			});
+		}
+	},
+	ChangeUsername: async ({ request, locals }) => {
+		const ll = get(LL);
+		let { user } = await locals.auth.validateUser();
+		const ChangeUsernameSchema = z.object({
+			username: z
+				.string()
+				.min(3, ll.registerSchema.usernameIshort())
+				.max(100, ll.registerSchema.usernameTooLong())
+				.default(user.username),
+		});
+		const ChangeUsernameForm = await superValidate(request, ChangeUsernameSchema);
+		if (!ChangeUsernameForm.valid) {
+			return fail(400, ChangeUsernameForm);
+		}
+		// check if username is taken
+		const usernameTaken = await prisma.authUser.findUnique({
+			where: {
+				username: ChangeUsernameForm.data.username,
+			},
+		});
+
+		if (usernameTaken) {
+			console.log('username taken');
+			return message(ChangeUsernameForm, {
+				message: 'Username is already taken',
+			});
+		}
+
+		try {
+			await auth.updateUserAttributes(user.userId, {
+				username: ChangeUsernameForm.data.username,
+			});
+			// goto profile page
+		} catch (e) {
+			console.log(e);
+			return message(ChangeUsernameForm, {
+				message: 'An unknown error occurred',
+			});
+		}
+	},
+	ChangeBirthdate: async ({ request, locals }) => {
+		const ll = get(LL);
+		const ChangeBirthdateSchema = z.object({
+			birthdate: z
+				.string()
+				.min(8, ll.registerSchema.birthdateRequired())
+				.max(100, ll.registerSchema.birthdateRequired()),
+		});
+		const ChangeBirthdateForm = await superValidate(request, ChangeBirthdateSchema);
+		if (!ChangeBirthdateForm.valid) {
+			return fail(400, ChangeBirthdateForm);
+		}
+		const { user } = await locals.auth.validateUser();
+		try {
+			await locals.auth.updateUserAttributes(user.userId, {
+				birthdate: ChangeBirthdateForm.data.birthdate,
+			});
+		} catch (e) {
+			return message(ChangeBirthdateForm, {
+				message: 'An unknown error occurred',
+			});
+		}
+	},
 } satisfies Actions;

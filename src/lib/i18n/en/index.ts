@@ -44,6 +44,7 @@ const en = {
 		CreerUnProfile: 'Create a profile',
 		InformationsPersonnelles: 'Personal information',
 	},
+	IsNotValidPhone: 'Phone number is not valid',
 } satisfies Translation;
 
 export default en;

@@ -171,6 +171,10 @@ type RootTranslation = {
 		 */
 		InformationsPersonnelles: string
 	}
+	/**
+	 * L​e​ ​n​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e​ ​n​'​e​s​t​ ​p​a​s​ ​v​a​l​i​d​e
+	 */
+	IsNotValidPhone: string
 }
 
 export type TranslationFunctions = {
@@ -330,6 +334,10 @@ export type TranslationFunctions = {
 		 */
 		InformationsPersonnelles: () => LocalizedString
 	}
+	/**
+	 * Le numéro de téléphone n'est pas valide
+	 */
+	IsNotValidPhone: () => LocalizedString
 }
 
 export type Formatters = {}

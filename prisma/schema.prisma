@@ -17,7 +17,6 @@ model AuthUser {
   auth_session AuthSession[]
   auth_key     AuthKey[]
   more_info    MoreInfo?
-
   // here you can add custom fields for your user
   // e.g. name, email, username, roles, etc.
   username       String    @unique
@@ -25,7 +24,6 @@ model AuthUser {
   verified_email Boolean   @default(false)
   birthdate      DateTime?
   logo           String    @default("/ProfilePicture/default.png")
-
   @@map("auth_user")
 }
 
@@ -34,7 +32,7 @@ model MoreInfo {
   phone_number String?       @unique
   wilaya       String?
   commune      String?
-  address      String?
+  
   role         role          @default(voyager)
   auth_user    AuthUser      @relation(references: [id], fields: [id], onDelete: Cascade)
   Reservation  Reservation[]
@@ -42,10 +40,8 @@ model MoreInfo {
   Liked        Liked[]
   theme        theme         @default(computer)
   langue       langue        @default(computer)
-
   Comment Comment[]
   Favorit Favorit[]
-
   @@map("more_info")
 }
 

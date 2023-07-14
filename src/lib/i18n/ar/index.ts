@@ -44,6 +44,7 @@ const ar = {
 		CreerUnProfile: 'إنشاء ملف تعريف',
 		InformationsPersonnelles: 'معلومات شخصية',
 	},
+	IsNotValidPhone: 'رقم الهاتف غير صالح',
 } satisfies Translation;
 
 export default ar;
