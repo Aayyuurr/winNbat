@@ -170,11 +170,77 @@ type RootTranslation = {
 		 * I​n​f​o​r​m​a​t​i​o​n​s​ ​p​e​r​s​o​n​n​e​l​l​e​s
 		 */
 		InformationsPersonnelles: string
+		/**
+		 * C​h​a​n​g​e​r​ ​l​e​ ​n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r
+		 */
+		ChangerLenomDutilisateur: string
+		/**
+		 * A​j​o​u​t​e​r​ ​u​n​ ​n​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e
+		 */
+		AjouterUnNumeroDeTelephone: string
+		/**
+		 * C​o​n​f​i​r​m​e​r​ ​l​e​ ​n​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e
+		 */
+		ConfirmerLeNumeroDeTelephone: string
+		/**
+		 * A​j​o​u​t​e​r​ ​u​n​e​ ​a​d​r​e​s​s​e
+		 */
+		AjouterUneAdresse: string
+		/**
+		 * C​o​n​f​i​r​m​e​r​ ​v​o​t​r​e​ ​a​d​r​e​s​s​e
+		 */
+		ConfimerVotreAdresse: string
+		/**
+		 * C​h​a​n​g​e​r​ ​v​o​t​r​e​ ​p​r​o​f​i​l
+		 */
+		ChangerVotreProfile: string
+		/**
+		 * C​h​a​n​g​e​r​ ​u​n​ ​p​a​r​a​m​è​t​r​e​ ​d​e​ ​v​o​t​r​e​ ​p​r​o​f​i​l​ ​i​c​i​ ​e​t​ ​c​l​i​q​u​e​z​ ​s​u​r​ ​l​e​ ​b​o​u​t​o​n​ ​p​o​u​r​ ​c​o​n​f​i​r​m​e​r
+		 */
+		ChangerUnparametredeVotreProfile: string
 	}
+	/**
+	 * N​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e
+	 */
+	PhoneNumbre: string
 	/**
 	 * L​e​ ​n​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e​ ​n​'​e​s​t​ ​p​a​s​ ​v​a​l​i​d​e
 	 */
 	IsNotValidPhone: string
+	/**
+	 * W​i​l​a​y​a
+	 */
+	wilaya: string
+	/**
+	 * C​o​m​m​u​n​e
+	 */
+	commune: string
+	MessageNotification: {
+		/**
+		 * S​u​c​c​è​s
+		 */
+		Succes: string
+		/**
+		 * E​r​r​e​u​r
+		 */
+		Error: string
+		/**
+		 * V​o​t​r​e​ ​n​o​m​ ​d​'​u​t​i​l​i​s​a​t​e​u​r​ ​a​ ​b​i​e​n​ ​é​t​é​ ​c​h​a​n​g​é
+		 */
+		NomUtilisateurBienChanger: string
+		/**
+		 * U​n​e​ ​e​r​r​e​u​r​ ​e​s​t​ ​s​u​r​v​e​n​u​e
+		 */
+		ErrorEstSurvenu: string
+		/**
+		 * V​o​u​s​ ​a​v​e​z​ ​a​j​o​u​t​e​r​ ​o​u​ ​m​o​d​i​f​i​e​r​ ​v​o​t​r​e​ ​n​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e​ ​a​v​e​c​ ​s​u​c​c​è​s
+		 */
+		VousAvezChangerModifierVotreNumeroDeTelephone: string
+		/**
+		 * V​o​u​s​ ​a​v​e​z​ ​a​j​o​u​t​e​r​ ​o​u​ ​m​o​d​i​f​i​e​r​ ​v​o​t​r​e​ ​a​d​r​e​s​s​e​ ​a​v​e​c​ ​s​u​c​c​è​s
+		 */
+		VousAvezChangerModifierVotreAdresse: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -333,11 +399,77 @@ export type TranslationFunctions = {
 		 * Informations personnelles
 		 */
 		InformationsPersonnelles: () => LocalizedString
+		/**
+		 * Changer le nom d'utilisateur
+		 */
+		ChangerLenomDutilisateur: () => LocalizedString
+		/**
+		 * Ajouter un numéro de téléphone
+		 */
+		AjouterUnNumeroDeTelephone: () => LocalizedString
+		/**
+		 * Confirmer le numéro de téléphone
+		 */
+		ConfirmerLeNumeroDeTelephone: () => LocalizedString
+		/**
+		 * Ajouter une adresse
+		 */
+		AjouterUneAdresse: () => LocalizedString
+		/**
+		 * Confirmer votre adresse
+		 */
+		ConfimerVotreAdresse: () => LocalizedString
+		/**
+		 * Changer votre profil
+		 */
+		ChangerVotreProfile: () => LocalizedString
+		/**
+		 * Changer un paramètre de votre profil ici et cliquez sur le bouton pour confirmer
+		 */
+		ChangerUnparametredeVotreProfile: () => LocalizedString
 	}
+	/**
+	 * Numéro de téléphone
+	 */
+	PhoneNumbre: () => LocalizedString
 	/**
 	 * Le numéro de téléphone n'est pas valide
 	 */
 	IsNotValidPhone: () => LocalizedString
+	/**
+	 * Wilaya
+	 */
+	wilaya: () => LocalizedString
+	/**
+	 * Commune
+	 */
+	commune: () => LocalizedString
+	MessageNotification: {
+		/**
+		 * Succès
+		 */
+		Succes: () => LocalizedString
+		/**
+		 * Erreur
+		 */
+		Error: () => LocalizedString
+		/**
+		 * Votre nom d'utilisateur a bien été changé
+		 */
+		NomUtilisateurBienChanger: () => LocalizedString
+		/**
+		 * Une erreur est survenue
+		 */
+		ErrorEstSurvenu: () => LocalizedString
+		/**
+		 * Vous avez ajouter ou modifier votre numéro de téléphone avec succès
+		 */
+		VousAvezChangerModifierVotreNumeroDeTelephone: () => LocalizedString
+		/**
+		 * Vous avez ajouter ou modifier votre adresse avec succès
+		 */
+		VousAvezChangerModifierVotreAdresse: () => LocalizedString
+	}
 }
 
 export type Formatters = {}

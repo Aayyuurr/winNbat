@@ -1,13 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { LuciaError } from 'lucia-auth';
 
 import { auth, emailVerificationToken } from '$lib/server/lucia';
 import { prisma } from '$lib/server/PrismaClient';
 import { get } from 'svelte/store';
-import { LL, setLocale } from '$lib/i18n/i18n-svelte';
+import { LL } from '$lib/i18n/i18n-svelte';
 import { z } from 'zod';
 import { sendVerificationEmail } from '$lib/email';
 import { Prisma } from '@prisma/client';
@@ -79,8 +79,29 @@ export const load = (async (event) => {
 			.max(100, ll.registerSchema.birthdateRequired()),
 	});
 	const ChangeBirthdateForm = await superValidate(ChangeBirthdateSchema);
+	let algeria_cities;
+	const locale = event.locals;
+
+	if (locale.toString() === 'ar') {
+		algeria_cities = await import('$lib/algeria_cities_ar.json');
+	} else {
+		algeria_cities = await import('$lib/algeria_cities.json');
+	}
+	const algeria = algeria_cities.default.map(({ wilaya_name, commune_name }) => ({
+		wilaya_name,
+		commune_name,
+	}));
+	// delete duplicate objects
+	algeria.forEach((item) => {
+		algeria.forEach((item2) => {
+			if (item.wilaya_name === item2.wilaya_name && item.commune_name === item2.commune_name) {
+				algeria.splice(algeria.indexOf(item2), 1);
+			}
+		});
+	});
 
 	return {
+		algeria,
 		user,
 		moreInfoUser,
 		ChangeEmailForm,
@@ -102,7 +123,7 @@ export const actions = {
 		});
 		const ChangeEmailForm = await superValidate(request, ChangeEmailSchema);
 		if (!ChangeEmailForm.valid) {
-			return fail(400, ChangeEmailForm);
+			return fail(400, { ChangeEmailForm });
 		}
 		const { user } = await locals.auth.validateUser();
 		try {
@@ -145,7 +166,7 @@ export const actions = {
 			});
 		const ChangeMdpForm = await superValidate(request, ChangeMdpSchema);
 		if (!ChangeMdpForm.valid) {
-			return fail(400, ChangeMdpForm);
+			return fail(400, { ChangeMdpForm });
 		}
 		try {
 			const { user } = await locals.auth.validateUser();
@@ -170,7 +191,7 @@ export const actions = {
 		});
 		const SetPhoneForm = await superValidate(request, SetPhoneSchema);
 		if (!SetPhoneForm.valid) {
-			return fail(400, SetPhoneForm);
+			return fail(400, { SetPhoneForm });
 		}
 		const { user } = await locals.auth.validateUser();
 		try {
@@ -182,23 +203,20 @@ export const actions = {
 					phone_number: SetPhoneForm.data.phone,
 				},
 			});
+			return message(SetPhoneForm, 'Phone number changed successfully');
 		} catch (e) {
 			console.log(e);
-			return fail(400, {
-				message: 'An unknown error occurred',
-				SetPhoneForm,
-			});
+			return message(SetPhoneForm, 'An unknown error occurred', { status: 500 });
 		}
 	},
 	SetLocation: async ({ request, locals }) => {
-		const ll = get(LL);
 		const SetLocationSchema = z.object({
 			wilaya: z.string().trim().min(2).max(100),
 			commune: z.string().trim().min(2).max(100),
 		});
 		const SetLocationForm = await superValidate(request, SetLocationSchema);
 		if (!SetLocationForm.valid) {
-			return fail(400, SetLocationForm);
+			return fail(400, { SetLocationForm });
 		}
 		const { user } = await locals.auth.validateUser();
 		try {
@@ -211,12 +229,10 @@ export const actions = {
 					commune: SetLocationForm.data.commune,
 				},
 			});
+			return message(SetLocationForm, 'Location changed successfully');
 		} catch (e) {
 			console.log(e);
-			return fail(400, {
-				message: 'An unknown error occurred',
-				SetLocationForm,
-			});
+			return message(SetLocationForm, 'An unknown error occurred', { status: 500 });
 		}
 	},
 
@@ -251,7 +267,7 @@ export const actions = {
 	},
 	ChangeUsername: async ({ request, locals }) => {
 		const ll = get(LL);
-		let { user } = await locals.auth.validateUser();
+		const { user } = await locals.auth.validateUser();
 		const ChangeUsernameSchema = z.object({
 			username: z
 				.string()
@@ -261,7 +277,7 @@ export const actions = {
 		});
 		const ChangeUsernameForm = await superValidate(request, ChangeUsernameSchema);
 		if (!ChangeUsernameForm.valid) {
-			return fail(400, ChangeUsernameForm);
+			return fail(400, { ChangeUsernameForm });
 		}
 		// check if username is taken
 		const usernameTaken = await prisma.authUser.findUnique({
@@ -271,9 +287,8 @@ export const actions = {
 		});
 
 		if (usernameTaken) {
-			console.log('username taken');
-			return message(ChangeUsernameForm, {
-				message: 'Username is already taken',
+			return message(ChangeUsernameForm, 'username taken', {
+				status: 409,
 			});
 		}
 
@@ -281,12 +296,10 @@ export const actions = {
 			await auth.updateUserAttributes(user.userId, {
 				username: ChangeUsernameForm.data.username,
 			});
-			// goto profile page
+			return message(ChangeUsernameForm, 'username changed successfully');
 		} catch (e) {
 			console.log(e);
-			return message(ChangeUsernameForm, {
-				message: 'An unknown error occurred',
-			});
+			return message(ChangeUsernameForm, 'An unknown error occurred', { status: 500 });
 		}
 	},
 	ChangeBirthdate: async ({ request, locals }) => {

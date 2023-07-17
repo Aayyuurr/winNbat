@@ -12,13 +12,7 @@
 		<slot />
 	</main>
 	<MobileBar user={data.user} />
-
 </div>
 
 <style>
-	div {
-		max-width: 320px;
-		margin: 0 auto;
-	}
-
 </style>

@@ -43,8 +43,28 @@ const fr = {
 		Profil: 'Profil',
 		CreerUnProfile: 'Créer un profil',
 		InformationsPersonnelles: 'Informations personnelles',
+		ChangerLenomDutilisateur: "Changer le nom d'utilisateur",
+		AjouterUnNumeroDeTelephone: 'Ajouter un numéro de téléphone',
+		ConfirmerLeNumeroDeTelephone: 'Confirmer le numéro de téléphone',
+		AjouterUneAdresse: 'Ajouter une adresse',
+		ConfimerVotreAdresse: 'Confirmer votre adresse',
+		ChangerVotreProfile: 'Changer votre profil',
+		ChangerUnparametredeVotreProfile:
+			'Changer un paramètre de votre profil ici et cliquez sur le bouton pour confirmer',
 	},
+	PhoneNumbre: 'Numéro de téléphone',
 	IsNotValidPhone: "Le numéro de téléphone n'est pas valide",
+	wilaya: 'Wilaya',
+	commune: 'Commune',
+	MessageNotification: {
+		Succes: 'Succès',
+		Error: 'Erreur',
+		NomUtilisateurBienChanger: "Votre nom d'utilisateur a bien été changé",
+		ErrorEstSurvenu: 'Une erreur est survenue',
+		VousAvezChangerModifierVotreNumeroDeTelephone:
+			'Vous avez ajouter ou modifier votre numéro de téléphone avec succès',
+		VousAvezChangerModifierVotreAdresse: 'Vous avez ajouter ou modifier votre adresse avec succès',
+	},
 } satisfies BaseTranslation;
 
 export default fr;

@@ -43,8 +43,28 @@ const en = {
 		Profil: 'Profile',
 		CreerUnProfile: 'Create a profile',
 		InformationsPersonnelles: 'Personal information',
+		ChangerLenomDutilisateur: 'Change username',
+		AjouterUnNumeroDeTelephone: 'Add a phone number',
+		ConfirmerLeNumeroDeTelephone: 'Confirm phone number',
+		AjouterUneAdresse: 'Add an address',
+		ConfimerVotreAdresse: 'Confirm your address',
+		ChangerVotreProfile: 'Change your profile',
+		ChangerUnparametredeVotreProfile:
+			'Change a parameter of your profile here and click the button to confirm',
 	},
+	PhoneNumbre: 'Phone number',
 	IsNotValidPhone: 'Phone number is not valid',
+	wilaya: 'Wilaya',
+	commune: 'Commune',
+	MessageNotification: {
+		Succes: 'Success',
+		Error: 'Error',
+		NomUtilisateurBienChanger: 'Your username has been changed',
+		ErrorEstSurvenu: 'An error has occurred',
+		VousAvezChangerModifierVotreNumeroDeTelephone:
+			'You have successfully added or changed your phone number',
+		VousAvezChangerModifierVotreAdresse: 'You have successfully added or changed your address',
+	},
 } satisfies Translation;
 
 export default en;

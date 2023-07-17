@@ -43,8 +43,26 @@ const ar = {
 		Profil: 'الملف الشخصي',
 		CreerUnProfile: 'إنشاء ملف تعريف',
 		InformationsPersonnelles: 'معلومات شخصية',
+		ChangerLenomDutilisateur: 'تغيير اسم المستخدم',
+		AjouterUnNumeroDeTelephone: 'إضافة رقم هاتف',
+		ConfirmerLeNumeroDeTelephone: 'تأكيد رقم الهاتف',
+		AjouterUneAdresse: 'إضافة عنوان',
+		ConfimerVotreAdresse: 'تأكيد عنوانك',
+		ChangerVotreProfile: 'تغيير ملفك الشخصي',
+		ChangerUnparametredeVotreProfile: 'قم بتغيير إعداد ملفك الشخصي هنا وانقر على الزر لتأكيد',
 	},
+	PhoneNumbre: 'رقم الهاتف',
 	IsNotValidPhone: 'رقم الهاتف غير صالح',
+	wilaya: 'ولاية',
+	commune: 'بلدية',
+	MessageNotification: {
+		Succes: 'نجاح',
+		Error: 'خطأ',
+		NomUtilisateurBienChanger: 'تم تغيير اسم المستخدم الخاص بك',
+		ErrorEstSurvenu: 'حدث خطأ',
+		VousAvezChangerModifierVotreNumeroDeTelephone: 'لقد قمت بإضافة أو تغيير رقم هاتفك بنجاح',
+		VousAvezChangerModifierVotreAdresse: 'لقد قمت بإضافة أو تغيير عنوانك بنجاح',
+	},
 } satisfies Translation;
 
 export default ar;
