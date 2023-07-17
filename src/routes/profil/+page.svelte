@@ -99,7 +99,7 @@
 	}
 </script>
 
-<div class="bg-secondary">
+<div class="">
 	<main class="pt-7 ml-2">
 		<div>
 			<h1 class="text-2xl text-bold pb-2">{$LL.ProfilePage.Profil()}</h1>
@@ -140,7 +140,7 @@
 							</Alert>
 						{/if}
 						<div class="grid w-full max-w-sm items-center gap-1.5">
-							<Label class="text-left p-2" for="username">{$LL.Username()}</Label>
+							<Label class="text-left py-2" for="username">{$LL.Username()}</Label>
 							<Input
 								type="text"
 								aria-invalid={$ChangeUsernameFormErrors.username ? 'true' : undefined}
@@ -197,7 +197,7 @@
 								</Alert>
 							{/if}
 							<div class="grid w-full max-w-sm items-center gap-1.5">
-								<Label class="text-left p-2" for="phone">{$LL.PhoneNumbre()}</Label>
+								<Label class="text-left py-2" for="phone">{$LL.PhoneNumbre()}</Label>
 								<Input
 									type="phone_number"
 									name="phone"
@@ -300,15 +300,20 @@
 				</div>
 			</div>
 		</div>
-		<Separator />
-		<Card>
-			<CardContent>
-				<CardTitle>Créer votre annonce</CardTitle>
-				<CardDescription>
-					<p>Vous pouvez créer votre annonce en cliquant sur le bouton ci-dessous</p>
-				</CardDescription>
-			</CardContent>
-		</Card>
+		<Separator class="my-2" />
+		<a href="/profil/createad">
+			<Card class="my-2 w-[420px] mx-auto">
+				<CardContent>
+					<CardTitle tag="h1" class="my-4">{$LL.ProfilePage.MetterVotreLogement()}</CardTitle>
+					<CardDescription class="grid grid-cols-4  grid-rows-1  ">
+						<h3 class=" place-self-center text-base col-span-3 font-medium">
+							{$LL.ProfilePage.GagnerDeLargent()}
+						</h3>
+						<img src="/Umrella.png" alt="plage " width="100" height="100" />
+					</CardDescription>
+				</CardContent>
+			</Card>
+		</a>
 		<Separator />
 		<div class="flex flex-col">
 			<Separator />

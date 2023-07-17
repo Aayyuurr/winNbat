@@ -50,6 +50,8 @@ const ar = {
 		ConfimerVotreAdresse: 'تأكيد عنوانك',
 		ChangerVotreProfile: 'تغيير ملفك الشخصي',
 		ChangerUnparametredeVotreProfile: 'قم بتغيير إعداد ملفك الشخصي هنا وانقر على الزر لتأكيد',
+		MetterVotreLogement: 'ضع سكنك على winNbat',
+		GagnerDeLargent: 'ابدأ نشاطك واكسب المال بسهولة',
 	},
 	PhoneNumbre: 'رقم الهاتف',
 	IsNotValidPhone: 'رقم الهاتف غير صالح',

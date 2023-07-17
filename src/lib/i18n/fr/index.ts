@@ -51,6 +51,8 @@ const fr = {
 		ChangerVotreProfile: 'Changer votre profil',
 		ChangerUnparametredeVotreProfile:
 			'Changer un paramètre de votre profil ici et cliquez sur le bouton pour confirmer',
+		MetterVotreLogement: 'Metter votre logement sur winNbat',
+		GagnerDeLargent: 'Commencer votre activité et gagner de l’argent avec simplicité',
 	},
 	PhoneNumbre: 'Numéro de téléphone',
 	IsNotValidPhone: "Le numéro de téléphone n'est pas valide",

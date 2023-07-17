@@ -205,7 +205,6 @@ export const actions = {
 			});
 			return message(SetPhoneForm, 'Phone number changed successfully');
 		} catch (e) {
-			console.log(e);
 			return message(SetPhoneForm, 'An unknown error occurred', { status: 500 });
 		}
 	},
@@ -231,7 +230,6 @@ export const actions = {
 			});
 			return message(SetLocationForm, 'Location changed successfully');
 		} catch (e) {
-			console.log(e);
 			return message(SetLocationForm, 'An unknown error occurred', { status: 500 });
 		}
 	},
@@ -298,7 +296,6 @@ export const actions = {
 			});
 			return message(ChangeUsernameForm, 'username changed successfully');
 		} catch (e) {
-			console.log(e);
 			return message(ChangeUsernameForm, 'An unknown error occurred', { status: 500 });
 		}
 	},

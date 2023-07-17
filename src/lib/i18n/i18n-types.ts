@@ -198,6 +198,14 @@ type RootTranslation = {
 		 * C​h​a​n​g​e​r​ ​u​n​ ​p​a​r​a​m​è​t​r​e​ ​d​e​ ​v​o​t​r​e​ ​p​r​o​f​i​l​ ​i​c​i​ ​e​t​ ​c​l​i​q​u​e​z​ ​s​u​r​ ​l​e​ ​b​o​u​t​o​n​ ​p​o​u​r​ ​c​o​n​f​i​r​m​e​r
 		 */
 		ChangerUnparametredeVotreProfile: string
+		/**
+		 * M​e​t​t​e​r​ ​v​o​t​r​e​ ​l​o​g​e​m​e​n​t​ ​s​u​r​ ​w​i​n​N​b​a​t
+		 */
+		MetterVotreLogement: string
+		/**
+		 * C​o​m​m​e​n​c​e​r​ ​v​o​t​r​e​ ​a​c​t​i​v​i​t​é​ ​e​t​ ​g​a​g​n​e​r​ ​d​e​ ​l​’​a​r​g​e​n​t​ ​a​v​e​c​ ​s​i​m​p​l​i​c​i​t​é
+		 */
+		GagnerDeLargent: string
 	}
 	/**
 	 * N​u​m​é​r​o​ ​d​e​ ​t​é​l​é​p​h​o​n​e
@@ -427,6 +435,14 @@ export type TranslationFunctions = {
 		 * Changer un paramètre de votre profil ici et cliquez sur le bouton pour confirmer
 		 */
 		ChangerUnparametredeVotreProfile: () => LocalizedString
+		/**
+		 * Metter votre logement sur winNbat
+		 */
+		MetterVotreLogement: () => LocalizedString
+		/**
+		 * Commencer votre activité et gagner de l’argent avec simplicité
+		 */
+		GagnerDeLargent: () => LocalizedString
 	}
 	/**
 	 * Numéro de téléphone
